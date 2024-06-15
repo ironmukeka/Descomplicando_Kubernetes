@@ -1,0 +1,128 @@
+root@linuxtips-server:~# kind create cluster --config meu-primeiro-cluster.yaml 
+Creating cluster "kind" ...
+ ✓ Ensuring node image (kindest/node:v1.30.0) 🖼 
+ ✓ Preparing nodes 📦 📦 📦 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️  
+ ✓ Installing CNI 🔌 
+ ✓ Installing StorageClass 💾 
+ ✗ Joining worker nodes 🚜 
+Deleted nodes: ["kind-worker2" "kind-control-plane" "kind-worker3" "kind-worker"]
+ERROR: failed to create cluster: failed to join node with kubeadm: command "docker exec --privileged kind-worker2 kubeadm join --config /kind/kubeadm.conf --skip-phases=preflight --v=6" failed with error: exit status 1
+Command Output: I0614 23:50:58.436432     205 join.go:417] [preflight] found NodeName empty; using OS hostname as NodeName
+I0614 23:50:58.436487     205 joinconfiguration.go:83] loading configuration from "/kind/kubeadm.conf"
+I0614 23:50:58.437375     205 controlplaneprepare.go:225] [download-certs] Skipping certs download
+I0614 23:50:58.437390     205 join.go:536] [preflight] Discovering cluster-info
+I0614 23:50:58.437421     205 token.go:79] [discovery] Created cluster-info discovery client, requesting info from "kind-control-plane:6443"
+I0614 23:50:58.443578     205 token.go:210] [discovery] Waiting for the cluster-info ConfigMap to receive a JWS signaturefor token ID "abcdef"
+I0614 23:50:58.468868     205 round_trippers.go:553] GET https://kind-control-plane:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s 200 OK in 22 milliseconds
+I0614 23:50:58.469261     205 token.go:228] [discovery] Retrying due to error: could not find a JWS signature in the cluster-info ConfigMap for token ID "abcdef"
+I0614 23:51:03.454754     205 round_trippers.go:553] GET https://kind-control-plane:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s 200 OK in 7 milliseconds
+I0614 23:51:03.455200     205 token.go:228] [discovery] Retrying due to error: could not find a JWS signature in the cluster-info ConfigMap for token ID "abcdef"
+I0614 23:51:08.454703     205 round_trippers.go:553] GET https://kind-control-plane:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s 200 OK in 6 milliseconds
+I0614 23:51:08.455146     205 token.go:228] [discovery] Retrying due to error: could not find a JWS signature in the cluster-info ConfigMap for token ID "abcdef"
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+I0614 23:51:13.517230     205 round_trippers.go:553] GET https://kind-control-plane:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s 200 OK in 63 milliseconds
+I0614 23:51:13.518057     205 token.go:104] [discovery] Cluster info signature and contents are valid and no TLS pinning was specified, will use API Server "kind-control-plane:6443"
+I0614 23:51:13.518068     205 discovery.go:52] [discovery] Using provided TLSBootstrapToken as authentication credentials for the join process
+I0614 23:51:13.518078     205 join.go:550] [preflight] Fetching init configuration
+I0614 23:51:13.518083     205 join.go:596] [preflight] Retrieving KubeConfig objects
+I0614 23:51:13.533888     205 round_trippers.go:553] GET https://kind-control-plane:6443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s 200 OK in 15 milliseconds
+I0614 23:51:13.536264     205 kubeproxy.go:55] attempting to download the KubeProxyConfiguration from ConfigMap "kube-proxy"
+I0614 23:51:13.558176     205 round_trippers.go:553] GET https://kind-control-plane:6443/api/v1/namespaces/kube-system/configmaps/kube-proxy?timeout=10s 200 OK in 21 milliseconds
+I0614 23:51:13.567524     205 kubelet.go:74] attempting to download the KubeletConfiguration from ConfigMap "kubelet-config"
+I0614 23:51:13.574719     205 round_trippers.go:553] GET https://kind-control-plane:6443/api/v1/namespaces/kube-system/configmaps/kubelet-config?timeout=10s 200 OK in 6 milliseconds
+I0614 23:51:13.585075     205 initconfiguration.go:114] skip CRI socket detection, fill with the default CRI socket unix:///var/run/containerd/containerd.sock
+I0614 23:51:13.585195     205 interface.go:432] Looking for default routes with IPv4 addresses
+I0614 23:51:13.585203     205 interface.go:437] Default route transits interface "eth0"
+I0614 23:51:13.585265     205 interface.go:209] Interface eth0 is up
+I0614 23:51:13.585300     205 interface.go:257] Interface "eth0" has 3 addresses :[172.18.0.4/16 fc00:f853:ccd:e793::4/64 fe80::42:acff:fe12:4/64].
+I0614 23:51:13.585315     205 interface.go:224] Checking addr  172.18.0.4/16.
+I0614 23:51:13.585324     205 interface.go:231] IP found 172.18.0.4
+I0614 23:51:13.585333     205 interface.go:263] Found valid IPv4 address 172.18.0.4 for interface "eth0".
+I0614 23:51:13.585341     205 interface.go:443] Found active IP 172.18.0.4 
+I0614 23:51:13.605224     205 kubelet.go:122] [kubelet-start] writing bootstrap kubelet config file at /etc/kubernetes/bootstrap-kubelet.conf
+I0614 23:51:13.606574     205 kubelet.go:137] [kubelet-start] writing CA certificate at /etc/kubernetes/pki/ca.crt
+I0614 23:51:13.607121     205 loader.go:395] Config loaded from file:  /etc/kubernetes/bootstrap-kubelet.conf
+I0614 23:51:13.607672     205 kubelet.go:158] [kubelet-start] Checking for an existing Node in the cluster with name "kind-worker2" and status "Ready"
+I0614 23:51:13.627640     205 round_trippers.go:553] GET https://kind-control-plane:6443/api/v1/nodes/kind-worker2?timeout=10s 404 Not Found in 19 milliseconds
+I0614 23:51:13.628077     205 kubelet.go:173] [kubelet-start] Stopping the kubelet
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-check] Waiting for a healthy kubelet. This can take up to 4m0s
+[kubelet-check] The kubelet is not healthy after 4m0.001004972s
+
+Unfortunately, an error has occurred:
+        The HTTP call equal to 'curl -sSL http://localhost:10248/healthz' returned error: Get "http://localhost:10248/healthz": context deadline exceeded
+
+
+This error is likely caused by:
+        - The kubelet is not running
+        - The kubelet is unhealthy due to a misconfiguration of the node in some way (required cgroups disabled)
+
+If you are on a systemd-powered system, you can try to troubleshoot the error with the following commands:
+        - 'systemctl status kubelet'
+        - 'journalctl -xeu kubelet'
+The HTTP call equal to 'curl -sSL http://localhost:10248/healthz' returned error: Get "http://localhost:10248/healthz": context deadline exceeded
+
+k8s.io/kubernetes/cmd/kubeadm/app/util/apiclient.(*KubeWaiter).WaitForKubelet.func1
+        k8s.io/kubernetes/cmd/kubeadm/app/util/apiclient/wait.go:256
+k8s.io/kubernetes/cmd/kubeadm/app/util/apiclient.(*KubeWaiter).WaitForKubelet.func2
+        k8s.io/kubernetes/cmd/kubeadm/app/util/apiclient/wait.go:273
+k8s.io/apimachinery/pkg/util/wait.loopConditionUntilContext.func2
+        k8s.io/apimachinery/pkg/util/wait/loop.go:87
+k8s.io/apimachinery/pkg/util/wait.loopConditionUntilContext
+        k8s.io/apimachinery/pkg/util/wait/loop.go:88
+k8s.io/apimachinery/pkg/util/wait.PollUntilContextTimeout
+        k8s.io/apimachinery/pkg/util/wait/poll.go:48
+k8s.io/kubernetes/cmd/kubeadm/app/util/apiclient.(*KubeWaiter).WaitForKubelet
+        k8s.io/kubernetes/cmd/kubeadm/app/util/apiclient/wait.go:260
+k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/join.runKubeletStartJoinPhase
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/join/kubelet.go:211
+k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow.(*Runner).Run.func1
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow/runner.go:259
+k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow.(*Runner).visitAll
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow/runner.go:446
+k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow.(*Runner).Run
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow/runner.go:232
+k8s.io/kubernetes/cmd/kubeadm/app/cmd.newCmdJoin.func1
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/join.go:183
+github.com/spf13/cobra.(*Command).execute
+        github.com/spf13/cobra@v1.7.0/command.go:940
+github.com/spf13/cobra.(*Command).ExecuteC
+        github.com/spf13/cobra@v1.7.0/command.go:1068
+github.com/spf13/cobra.(*Command).Execute
+        github.com/spf13/cobra@v1.7.0/command.go:992
+k8s.io/kubernetes/cmd/kubeadm/app.Run
+        k8s.io/kubernetes/cmd/kubeadm/app/kubeadm.go:52
+main.main
+        k8s.io/kubernetes/cmd/kubeadm/kubeadm.go:25
+runtime.main
+        runtime/proc.go:271
+runtime.goexit
+        runtime/asm_amd64.s:1695
+error execution phase kubelet-start
+k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow.(*Runner).Run.func1
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow/runner.go:260
+k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow.(*Runner).visitAll
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow/runner.go:446
+k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow.(*Runner).Run
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/phases/workflow/runner.go:232
+k8s.io/kubernetes/cmd/kubeadm/app/cmd.newCmdJoin.func1
+        k8s.io/kubernetes/cmd/kubeadm/app/cmd/join.go:183
+github.com/spf13/cobra.(*Command).execute
+        github.com/spf13/cobra@v1.7.0/command.go:940
+github.com/spf13/cobra.(*Command).ExecuteC
+        github.com/spf13/cobra@v1.7.0/command.go:1068
+github.com/spf13/cobra.(*Command).Execute
+        github.com/spf13/cobra@v1.7.0/command.go:992
+k8s.io/kubernetes/cmd/kubeadm/app.Run
+        k8s.io/kubernetes/cmd/kubeadm/app/kubeadm.go:52
+main.main
+        k8s.io/kubernetes/cmd/kubeadm/kubeadm.go:25
+runtime.main
+        runtime/proc.go:271
+runtime.goexit
+        runtime/asm_amd64.s:1695
